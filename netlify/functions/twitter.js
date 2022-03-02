@@ -44,9 +44,11 @@ exports.handler = async function ({ queryStringParameters }) {
       }
     }
     const result = { username, user }
-    return { statusCode: 200,
-,
-    body: JSON.stringify(result, null, 2) }
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify(result, null, 2)
+    }
   } catch (error) {
 
     return {
