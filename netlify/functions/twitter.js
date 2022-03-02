@@ -26,7 +26,7 @@ exports.handler = async function ({ queryStringParameters }) {
       {
         'user.fields': 'profile_image_url'
       });
-    user.data.profile_image_url
+
     if (user.errors) {
       return {
         statusCode: 500,
