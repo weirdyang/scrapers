@@ -1,6 +1,11 @@
 const bearer = process.env.BEARER;
 const { TwitterApi } = require('twitter-api-v2');
-
+const headers = {
+  /* Required for CORS support to work */
+  'Access-Control-Allow-Origin': '*',
+  /* Required for cookies, authorization headers with HTTPS */
+  'Access-Control-Allow-Credentials': true
+}
 
 
 exports.handler = async function ({ queryStringParameters }) {
@@ -16,6 +21,7 @@ exports.handler = async function ({ queryStringParameters }) {
     if (!username) {
       return {
         statusCode: 500,
+        headers,
         body: JSON.stringify(
           {
             error: 'no username'
@@ -30,6 +36,7 @@ exports.handler = async function ({ queryStringParameters }) {
     if (user.errors) {
       return {
         statusCode: 500,
+        headers,
         body: JSON.stringify(
           {
             error: user.errors[0].detail
@@ -37,11 +44,14 @@ exports.handler = async function ({ queryStringParameters }) {
       }
     }
     const result = { username, user }
-    return { statusCode: 200, body: JSON.stringify(result, null, 2) }
+    return { statusCode: 200,
+,
+    body: JSON.stringify(result, null, 2) }
   } catch (error) {
 
     return {
       statusCode: 500,
+      headers,
       body: JSON.stringify(
         {
           error: 'whoops'
