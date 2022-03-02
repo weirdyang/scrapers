@@ -1,6 +1,4 @@
 const bearer = process.env.BEARER;
-const key = process.env.KEY;
-const secret = process.env.SECRET;
 const { TwitterApi } = require('twitter-api-v2');
 
 
@@ -37,6 +35,6 @@ exports.handler = async function ({ queryStringParameters }) {
         }, null, 2)
     }
   }
-  const result = { bearer, key, secret, username, user}
+  const result = { username, user}
   return { statusCode: 200, body: JSON.stringify(result, null, 2) }
 }
